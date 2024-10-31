@@ -16,6 +16,12 @@ variables:
     value: 'storagebura'
 
 steps:
+- script: |
+    echo "Listing files in $(Build.SourcesDirectory):"
+    ls $(Build.SourcesDirectory)
+    echo "Listing files in $(Build.SourcesDirectory)/StorageAccount:"
+    ls $(Build.SourcesDirectory)/StorageAccount
+  displayName: 'Listing files to debug path'
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
@@ -25,7 +31,7 @@ steps:
     resourceGroupName: '$(RgName)'
     location: 'East US'
     templateLocation: 'Linked artifact'
-    csmFile: '$(Build.SourcesDirectory)/VMw/StorageAccount/azuredeploy.json'
-    csmParametersFile: '$(Build.SourcesDirectory)/VMw/StorageAccount/azuredeploy.parametres.json'
+    csmFile: '$(Build.SourcesDirectory)/StorageAccount/azuredeploy.json'
+    csmParametersFile: '$(Build.SourcesDirectory)/StorageAccount/azuredeploy.parametres.json'
     overrideParameters: '-storageAccountName $(StorageAccount)'
     deploymentMode: 'Validation'
