@@ -17,9 +17,10 @@ variables:
 
 steps:
 - script: |
-    echo "Listing files in $(Build.SourcesDirectory)"
+    echo "Exploring directory structure in $(Build.SourcesDirectory)"
     dir /S $(Build.SourcesDirectory)
-  displayName: 'Verify files in source directory'
+  displayName: 'List all files in the source directory'
+
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
