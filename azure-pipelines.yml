@@ -29,3 +29,18 @@ steps:
     csmParametersFile: '$(Build.SourcesDirectory)/StorageAccount/azuredeploy.parameters.json'
     overrideParameters: '-storageAccountName $(StorageAccount)'
     deploymentMode: 'Validation'
+    
+
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Azure subscription 1(f224499d-9e08-44eb-80e4-92cba7013495)'
+    subscriptionId: 'f224499d-9e08-44eb-80e4-92cba7013495'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'eburaso'
+    location: 'East US'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(Build.SourcesDirectory)/VNet/azuredeploy.json'
+    csmParametersFile: '$(Build.SourcesDirectory)/VNet/azuredeploy.parameters.json'
+    deploymentMode: 'Validation'
+

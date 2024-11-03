@@ -34,6 +34,21 @@ steps:
     deploymentOutputs: 'StorageAccountDeployment'
 
 
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Azure subscription 1(f224499d-9e08-44eb-80e4-92cba7013495)'
+    subscriptionId: 'f224499d-9e08-44eb-80e4-92cba7013495'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'eburaso'
+    location: 'East US'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(Build.SourcesDirectory)/VNet/azuredeploy.json'
+    csmParametersFile: '$(Build.SourcesDirectory)/VNet/azuredeploy.parameters.json'
+    deploymentMode: 'Complete'
+
+
+
 - task: PowerShell@2
   displayName: Pushing PowerShell File onto Storage Account
   inputs:
