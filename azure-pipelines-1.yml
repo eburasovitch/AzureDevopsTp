@@ -10,9 +10,13 @@ pool: 'default'
 
 variables:
   - name: RgName
-    value: 'eburaso'
+    value : 'eburaso'
   - name: StorageAccount
-    value: 'storagebura'
+    value : 'storagebura'
+  - name : FileName
+    value: 'CustomExtension.ps1'
+  - name : FileURL
+    value : ''
 
 steps:
 - task: AzureResourceManagerTemplateDeployment@3
@@ -27,3 +31,27 @@ steps:
     csmFile: '$(Build.SourcesDirectory)/StorageAccount/azuredeploy.json'
     csmParametersFile: '$(Build.SourcesDirectory)/StorageAccount/azuredeploy.parameters.json'
     deploymentMode: 'Complete'
+    deploymentOutputs: 'StorageAccountDeployment'
+
+
+- task: PowerShell@2
+  displayName: Pushing PowerShell File onto Storage Account
+  inputs:
+    targetType: 'inline'
+    script: |
+            Write-Host $(StorageAccountDeployment.storageKey.Value)
+
+            $context = New-AzStorageContext -StorageAccountName $(StorageAccount) -StorageAccountKey $(StorageAccountDeployment.storageKey.Value)
+            $setParams = @{
+                Container =  'blob'
+                File      = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine('$(Build.SourcesDirectory)', './StorageAccount/$(FileName)'))
+                Context   = $context
+            }
+            Write-Host $setParams.File
+
+            $blob = Set-AzStorageBlobContent @setParams -Force
+            $url = $blob.ICloudBlob.Uri.AbsoluteUri
+
+            Write-Host $url
+
+            Write-Host "##vso[task.setvariable variable=FileURL]$url"

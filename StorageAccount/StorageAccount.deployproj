@@ -25,6 +25,9 @@
   <ItemGroup>
     <Content Include="azuredeploy.json" />
     <Content Include="azuredeploy.parameters.json" />
+    <Content Include="CustomExtension.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
