@@ -39,12 +39,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-            Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force -Confirm:$false
-            if (Get-Module -ListAvailable -Name Az) {
-              Write-Host "Version du module Az installée : $(Get-Module -ListAvailable -Name Az).Version"
-            } else {
-              Write-Host "Module Az non installé."
-            }
             Write-Host $(StorageAccountDeployment.storageKey.Value)
 
             $context = New-AzStorageContext -StorageAccountName $(StorageAccount) -StorageAccountKey $(StorageAccountDeployment.storageKey.Value)
