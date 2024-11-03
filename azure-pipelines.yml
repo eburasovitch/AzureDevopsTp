@@ -37,7 +37,7 @@ steps:
     azureResourceManagerConnection: 'Azure subscription 1(f224499d-9e08-44eb-80e4-92cba7013495)'
     subscriptionId: 'f224499d-9e08-44eb-80e4-92cba7013495'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'eburaso'
+    resourceGroupName: '$(RgName)'
     location: 'East US'
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.SourcesDirectory)/VNet/azuredeploy.json'
