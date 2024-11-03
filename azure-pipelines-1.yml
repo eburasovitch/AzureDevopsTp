@@ -39,6 +39,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+            Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force
             if (Get-Module -ListAvailable -Name Az) {
               Write-Host "Version du module Az installée : $(Get-Module -ListAvailable -Name Az).Version"
             } else {
