@@ -401,7 +401,7 @@
         },
         "parameters": {
           "fileUris": {
-            "value": "https://storagebura.blob.core.windows.net/blob/CustomExtension.ps1?sp=r&st=2024-11-03T21:47:17Z&se=2025-02-01T21:47:17Z&sv=2022-11-02&sr=b&sig=AwRgVbiT7MaUUTlgz8K0F%2F5eqM4zAKeACtyo3kh%2BIRM%3D"
+            "value": "[parameters('FileURL')]"
           },
           "arguments": {
             "value": "powershell.exe -ExcutionPolicy Unrestriced -File [parameters('FileName')]"
