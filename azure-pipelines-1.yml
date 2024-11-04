@@ -20,6 +20,7 @@ variables:
 
 steps:
 - task: AzureResourceManagerTemplateDeployment@3
+  displayName: Deployment storage account
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: 'Azure subscription 1(f224499d-9e08-44eb-80e4-92cba7013495)'
@@ -30,6 +31,7 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.SourcesDirectory)/StorageAccount/azuredeploy.json'
     csmParametersFile: '$(Build.SourcesDirectory)/StorageAccount/azuredeploy.parameters.json'
+    overrideParameters: '-storageAccountName $(StorageAccount)'
     deploymentMode: 'Complete'
     deploymentOutputs: 'StorageAccountDeployment'
 
@@ -56,3 +58,18 @@ steps:
             Write-Host $url
 
             Write-Host "##vso[task.setvariable variable=FileURL]$url"
+
+- task: AzureResourceManagerTemplateDeployment@3
+  displayName: Deployment VM
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Azure subscription 1(f224499d-9e08-44eb-80e4-92cba7013495)'
+    subscriptionId: 'f224499d-9e08-44eb-80e4-92cba7013495'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: '$(RgName)'
+    location: 'Australia East'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(Build.SourcesDirectory)/WindowsVM/azuredeploy.json'
+    csmParametersFile: '$(Build.SourcesDirectory)/WindowsVM/azuredeploy.parameters.json'
+    overrideParameters: '-FileURL $(FileURL) -adminPassword $(AdminPass)'
+    deploymentMode: 'Complete'

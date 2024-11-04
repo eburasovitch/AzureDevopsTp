@@ -1,0 +1,232 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "type": "String"
+    },
+    "location": {
+      "type": "String"
+    },
+    "sku": {
+      "type": "String"
+    },
+    "tier": {
+      "type": "String"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/loadBalancers",
+      "apiVersion": "2023-02-01",
+      "name": "[parameters('name')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [],
+      "tags": {},
+      "sku": {
+        "name": "[parameters('sku')]",
+        "tier": "[parameters('tier')]"
+      },
+      "properties": {
+        "frontendIPConfigurations": [
+          {
+            "name": "IPname",
+            "properties": {
+              "privateIPAddressVersion": "IPv4",
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Network/virtualNetworks/VM-web-1-vnet/subnets/default"
+              }
+            },
+            "zones": [
+              "1",
+              "3",
+              "2"
+            ]
+          }
+        ],
+        "backendAddressPools": [
+          {
+            "name": "MyBackendPool"
+          }
+        ],
+        "probes": [],
+        "loadBalancingRules": [],
+        "inboundNatRules": [],
+        "outboundRules": []
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "NicUpdate-195cac39-60cf-48be-9c5b-f0d5fdb4c5b4-20241104092709",
+      "dependsOn": [
+        "Microsoft.Network/loadBalancers/LBvm"
+      ],
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {},
+        "template": {
+          "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {},
+          "variables": {},
+          "resources": [
+            {
+              "apiVersion": "2022-11-01",
+              "type": "Microsoft.Network/networkInterfaces",
+              "name": "vm-web-141_z1",
+              "location": "australiaeast",
+              "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "3f8e5fbe-16ac-4e2b-8564-9096816bc0d7",
+                "ipConfigurations": [
+                  {
+                    "name": "ipconfig1",
+                    "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Network/networkInterfaces/vm-web-141_z1/ipConfigurations/ipconfig1",
+                    "etag": "W/\"ae1977a6-c62b-4fe9-ac44-f79f0b656dc9\"",
+                    "type": "Microsoft.Network/networkInterfaces/ipConfigurations",
+                    "properties": {
+                      "provisioningState": "Succeeded",
+                      "privateIPAddress": "10.0.0.5",
+                      "privateIPAllocationMethod": "Dynamic",
+                      "publicIPAddress": {
+                        "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Network/publicIPAddresses/VM-web-1-ip",
+                        "properties": {
+                          "deleteOption": "Detach"
+                        }
+                      },
+                      "subnet": {
+                        "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Network/virtualNetworks/VM-web-1-vnet/subnets/default"
+                      },
+                      "primary": true,
+                      "privateIPAddressVersion": "IPv4",
+                      "loadBalancerBackendAddressPools": [
+                        {
+                          "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourcegroups/eburaso/providers/Microsoft.Network/loadBalancers/LBvm/backendAddressPools/MyBackendPool"
+                        }
+                      ],
+                      "loadBalancerInboundNatRules": []
+                    }
+                  }
+                ],
+                "dnsSettings": {
+                  "dnsServers": [],
+                  "appliedDnsServers": [],
+                  "internalDomainNameSuffix": "bpv3eqzk12ierolsf5atxgg0zg.px.internal.cloudapp.net"
+                },
+                "macAddress": "00-0D-3A-D1-A1-7D",
+                "enableAcceleratedNetworking": true,
+                "vnetEncryptionSupported": false,
+                "enableIPForwarding": false,
+                "disableTcpStateTracking": false,
+                "networkSecurityGroup": {
+                  "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Network/networkSecurityGroups/VM-web-1-nsg"
+                },
+                "primary": true,
+                "virtualMachine": {
+                  "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Compute/virtualMachines/VM-web-1"
+                },
+                "hostedWorkloads": [],
+                "tapConfigurations": [],
+                "nicType": "Standard",
+                "allowPort25Out": false,
+                "auxiliaryMode": "None",
+                "auxiliarySku": "None"
+              },
+              "tags": {}
+            }
+          ],
+          "outputs": {}
+        }
+      },
+      "resourceGroup": "eburaso"
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "NicUpdate-18c0be99-8ed6-4612-9136-7cf437208634-20241104092709",
+      "dependsOn": [
+        "Microsoft.Network/loadBalancers/LBvm"
+      ],
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {},
+        "template": {
+          "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {},
+          "variables": {},
+          "resources": [
+            {
+              "apiVersion": "2022-11-01",
+              "type": "Microsoft.Network/networkInterfaces",
+              "name": "vm-web-1449_z2",
+              "location": "australiaeast",
+              "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "5093285b-c22c-48bc-be3d-4f32df9cae1f",
+                "ipConfigurations": [
+                  {
+                    "name": "ipconfig1",
+                    "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Network/networkInterfaces/vm-web-1449_z2/ipConfigurations/ipconfig1",
+                    "etag": "W/\"9c53f85d-ed63-4e78-a4f7-bbc348e31cac\"",
+                    "type": "Microsoft.Network/networkInterfaces/ipConfigurations",
+                    "properties": {
+                      "provisioningState": "Succeeded",
+                      "privateIPAddress": "10.0.0.4",
+                      "privateIPAllocationMethod": "Dynamic",
+                      "subnet": {
+                        "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Network/virtualNetworks/VM-web-1-vnet/subnets/default"
+                      },
+                      "primary": true,
+                      "privateIPAddressVersion": "IPv4",
+                      "loadBalancerBackendAddressPools": [
+                        {
+                          "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourcegroups/eburaso/providers/Microsoft.Network/loadBalancers/LBvm/backendAddressPools/MyBackendPool"
+                        }
+                      ],
+                      "loadBalancerInboundNatRules": []
+                    }
+                  }
+                ],
+                "dnsSettings": {
+                  "dnsServers": [],
+                  "appliedDnsServers": [],
+                  "internalDomainNameSuffix": "bpv3eqzk12ierolsf5atxgg0zg.px.internal.cloudapp.net"
+                },
+                "macAddress": "00-0D-3A-D0-E0-4A",
+                "enableAcceleratedNetworking": true,
+                "vnetEncryptionSupported": false,
+                "enableIPForwarding": false,
+                "disableTcpStateTracking": false,
+                "networkSecurityGroup": {
+                  "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Network/networkSecurityGroups/VM-web-1-nsg"
+                },
+                "primary": true,
+                "virtualMachine": {
+                  "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Compute/virtualMachines/VM-web-2"
+                },
+                "hostedWorkloads": [],
+                "tapConfigurations": [],
+                "nicType": "Standard",
+                "allowPort25Out": false,
+                "auxiliaryMode": "None",
+                "auxiliarySku": "None"
+              },
+              "tags": {}
+            }
+          ],
+          "outputs": {}
+        }
+      },
+      "resourceGroup": "eburaso"
+    }
+  ]
+}

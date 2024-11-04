@@ -14,6 +14,8 @@ variables:
     value: 'eburaso'
   - name: StorageAccount
     value: 'storagebura'
+  - name : FileURL
+    value : ''
 
 steps:
 - task: AzureResourceManagerTemplateDeployment@3
@@ -28,4 +30,19 @@ steps:
     csmFile: '$(Build.SourcesDirectory)/StorageAccount/azuredeploy.json'
     csmParametersFile: '$(Build.SourcesDirectory)/StorageAccount/azuredeploy.parameters.json'
     overrideParameters: '-storageAccountName $(StorageAccount)'
+    deploymentMode: 'Validation'
+
+
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Azure subscription 1(f224499d-9e08-44eb-80e4-92cba7013495)'
+    subscriptionId: 'f224499d-9e08-44eb-80e4-92cba7013495'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: '$(RgName)'
+    location: 'Australia East'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(Build.SourcesDirectory)/WindowsVM/azuredeploy.json'
+    csmParametersFile: '$(Build.SourcesDirectory)/WindowsVM/azuredeploy.parameters.json'
+    overrideParameters: '-FileURL $(FileURL) -adminPassword $(AdminPass)'
     deploymentMode: 'Validation'

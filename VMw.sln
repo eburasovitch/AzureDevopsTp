@@ -9,6 +9,8 @@ Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "WindowsVM", "WindowsVM\Wind
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "VNet", "VNet\VNet.deployproj", "{D4F29366-1E03-46AA-92E9-B0758F876000}"
 EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "LBvm", "LBvm\LBvm.deployproj", "{FBEBE1CC-B679-4C8A-AC0D-DB2856EC550F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D4F29366-1E03-46AA-92E9-B0758F876000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4F29366-1E03-46AA-92E9-B0758F876000}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4F29366-1E03-46AA-92E9-B0758F876000}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBEBE1CC-B679-4C8A-AC0D-DB2856EC550F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBEBE1CC-B679-4C8A-AC0D-DB2856EC550F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBEBE1CC-B679-4C8A-AC0D-DB2856EC550F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBEBE1CC-B679-4C8A-AC0D-DB2856EC550F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

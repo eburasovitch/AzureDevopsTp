@@ -3,163 +3,135 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "location": {
-      "value": "eastus"
+      "value": "australiaeast"
     },
-    "extendedLocation": {
-      "value": {}
+    "networkInterfaceName1": {
+      "value": "vm-web-141_z1"
+    },
+    "enableAcceleratedNetworking": {
+      "value": true
+    },
+    "networkInterfaceName2": {
+      "value": "vm-web-1449_z2"
+    },
+    "networkSecurityGroupName": {
+      "value": "VM-web-1-nsg"
+    },
+    "networkSecurityGroupRules": {
+      "value": [
+        {
+          "name": "HTTP",
+          "properties": {
+            "priority": 300,
+            "protocol": "TCP",
+            "access": "Allow",
+            "direction": "Inbound",
+            "sourceAddressPrefix": "*",
+            "sourcePortRange": "*",
+            "destinationAddressPrefix": "*",
+            "destinationPortRange": "80"
+          }
+        }
+      ]
+    },
+    "subnetName": {
+      "value": "default"
     },
     "virtualNetworkName": {
-      "value": "VNetBura"
+      "value": "VM-web-1-vnet"
     },
-    "tagsByResource": {
-      "value": {
-        "Microsoft.Network/virtualNetworks": {},
-        "Microsoft.Network/ddosProtectionPlans": {},
-        "Microsoft.Network/publicIPAddresses": {},
-        "Microsoft.Network/azureFirewalls": {},
-        "Microsoft.Network/bastionHosts": {},
-        "Microsoft.Network/natGateways": {},
-        "Microsoft.Network/publicIPPrefixes": {},
-        "Microsoft.Network/networkSecurityGroups": {}
-      }
-    },
-    "addressSpace": {
-      "value": {
-        "addressPrefixes": [
-          "10.0.0.0/16"
-        ]
-      }
-    },
-    "encryptionEnabled": {
-      "value": false
-    },
-    "encryptionEnforcement": {
-      "value": "AllowUnencrypted"
+    "addressPrefixes": {
+      "value": [
+        "10.0.0.0/16"
+      ]
     },
     "subnets": {
       "value": [
         {
           "name": "default",
           "properties": {
-            "addressPrefixes": [
-              "10.0.0.0/24"
-            ]
+            "addressPrefix": "10.0.0.0/24"
           }
         }
       ]
     },
-    "ddosProtectionPlanEnabled": {
-      "value": false
+    "publicIpAddressName1": {
+      "value": "VM-web-1-ip"
     },
-    "firewallEnabled": {
-      "value": false
+    "publicIpAddressType": {
+      "value": "Static"
     },
-    "bastionEnabled": {
-      "value": false
-    },
-    "ddosProtectionPlanIsNew": {
-      "value": false
-    },
-    "firewallPublicIpAddressIsNew": {
-      "value": false
-    },
-    "firewallPolicyIsNew": {
-      "value": false
-    },
-    "firewallPolicyManagementPublicIPAddressIsNew": {
-      "value": false
-    },
-    "bastionPublicIpAddressIsNew": {
-      "value": false
-    },
-    "bastionNsgIsNew": {
-      "value": false
-    },
-    "ddosProtectionPlanName": {
-      "value": "##ddos-protection-plan-name-not-set##"
-    },
-    "ddosProtectionPlanId": {
-      "value": "##ddos-protection-plan-id-not-set##"
-    },
-    "firewallName": {
-      "value": "##firewall-name-not-set##"
-    },
-    "firewallSkuTier": {
+    "publicIpAddressSku": {
       "value": "Standard"
     },
-    "firewallPublicIpAddressName": {
-      "value": "##firewall-public-ip-name-not-set##"
+    "pipDeleteOption": {
+      "value": "Detach"
     },
-    "firewallPublicIpAddressId": {
-      "value": ""
+    "virtualMachineName": {
+      "value": "VM-web-1"
     },
-    "firewallPolicyName": {
-      "value": "##firewall-policy-name-not-set##"
+    "virtualMachineName1": {
+      "value": "VM-web-1"
     },
-    "firewallPolicyId": {
-      "value": "##firewall-policy-id-not-set##"
+    "virtualMachineComputerName1": {
+      "value": "VM-web-1"
     },
-    "firewallPolicyTier": {
-      "value": "Standard"
+    "virtualMachineRG": {
+      "value": "eburaso"
     },
-    "firewallPolicyManagementPublicIPAddressName": {
-      "value": "##firewall-policy-management-public-i-p-address-name-not-set##"
+    "osDiskType": {
+      "value": "StandardSSD_LRS"
     },
-    "firewallPolicyManagementPublicIPAddressId": {
-      "value": "##firewall-policy-management-public-i-p-address-id-not-set##"
+    "osDiskDeleteOption": {
+      "value": "Delete"
     },
-    "bastionName": {
-      "value": "##bastion-name-not-set##"
+    "virtualMachineSize": {
+      "value": "Standard_DS1_v2"
     },
-    "bastionPublicIpAddressName": {
-      "value": "##bastion-public-ip-address-name-not-set##"
+    "nicDeleteOption": {
+      "value": "Detach"
     },
-    "bastionPublicIPAddressId": {
-      "value": ""
-    },
-    "bastionNsgName": {
-      "value": "##bastion-nsg-name-not-set##"
-    },
-    "bastionNsgId": {
-      "value": "##bastion-nsg-id-not-set##"
-    },
-    "natGatewaysWithNewPublicIpAddress": {
-      "value": []
-    },
-    "natGatewaysWithoutNewPublicIpAddress": {
-      "value": []
-    },
-    "natGatewayPublicIpAddressesNewNames": {
-      "value": []
-    },
-    "networkSecurityGroupsNew": {
-      "value": []
-    },
-    "ipv6Enabled": {
+    "hibernationEnabled": {
       "value": false
     },
-    "subnetCount": {
-      "value": 1
+    "adminUsername": {
+      "value": "VMadmin"
     },
-    "addressSpaceStartingAddressChanged": {
-      "value": false
+    "adminPassword": {
+      "value": null
     },
-    "addressSpaceAddressSizeChanged": {
-      "value": false
+    "patchMode": {
+      "value": "AutomaticByPlatform"
     },
-    "defaultSubnetChanged": {
+    "enableHotpatching": {
       "value": true
     },
-    "subnetsInfo": {
-      "value": [
-        {
-          "cidr": "10.0.0.0/24",
-          "name": "Default",
-          "natGw": "none",
-          "nsg": "none",
-          "udr": "none"
-        }
-      ]
+    "rebootSetting": {
+      "value": "IfRequired"
+    },
+    "securityType": {
+      "value": "TrustedLaunch"
+    },
+    "secureBoot": {
+      "value": true
+    },
+    "vTPM": {
+      "value": true
+    },
+    "virtualMachineName2": {
+      "value": "VM-web-2"
+    },
+    "virtualMachineComputerName2": {
+      "value": "VM-web-2"
+    },
+    "virtualMachine1Zone": {
+      "value": "1"
+    },
+    "virtualMachine2Zone": {
+      "value": "2"
+    },
+    "FileURL": {
+      "value": ""
     }
   }
 }
