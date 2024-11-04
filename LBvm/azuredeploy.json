@@ -32,22 +32,15 @@
           {
             "name": "IPname",
             "properties": {
-              "privateIPAddressVersion": "IPv4",
-              "privateIPAllocationMethod": "Dynamic",
-              "subnet": {
-                "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Network/virtualNetworks/VM-web-1-vnet/subnets/default"
+              "publicIPAddress": {
+                "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourcegroups/eburaso/providers/microsoft.network/publicipaddresses/ippubliquelb"
               }
-            },
-            "zones": [
-              "1",
-              "3",
-              "2"
-            ]
+            }
           }
         ],
         "backendAddressPools": [
           {
-            "name": "MyBackendPool"
+            "name": "MyLoadBalancingRule"
           }
         ],
         "probes": [],
@@ -59,7 +52,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "name": "NicUpdate-195cac39-60cf-48be-9c5b-f0d5fdb4c5b4-20241104092709",
+      "name": "NicUpdate-1d1a6b39-8ebe-4400-8630-f372c2f22933-20241104094102",
       "dependsOn": [
         "Microsoft.Network/loadBalancers/LBvm"
       ],
@@ -82,12 +75,12 @@
               "location": "australiaeast",
               "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "3f8e5fbe-16ac-4e2b-8564-9096816bc0d7",
+                "resourceGuid": "79bf81f0-3102-43e3-97bb-9140d4c431b6",
                 "ipConfigurations": [
                   {
                     "name": "ipconfig1",
                     "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Network/networkInterfaces/vm-web-141_z1/ipConfigurations/ipconfig1",
-                    "etag": "W/\"ae1977a6-c62b-4fe9-ac44-f79f0b656dc9\"",
+                    "etag": "W/\"61e49d7b-11ee-4389-b3df-d07b564c9931\"",
                     "type": "Microsoft.Network/networkInterfaces/ipConfigurations",
                     "properties": {
                       "provisioningState": "Succeeded",
@@ -106,7 +99,7 @@
                       "privateIPAddressVersion": "IPv4",
                       "loadBalancerBackendAddressPools": [
                         {
-                          "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourcegroups/eburaso/providers/Microsoft.Network/loadBalancers/LBvm/backendAddressPools/MyBackendPool"
+                          "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourcegroups/eburaso/providers/Microsoft.Network/loadBalancers/LBvm/backendAddressPools/MyLoadBalancingRule"
                         }
                       ],
                       "loadBalancerInboundNatRules": []
@@ -116,9 +109,9 @@
                 "dnsSettings": {
                   "dnsServers": [],
                   "appliedDnsServers": [],
-                  "internalDomainNameSuffix": "bpv3eqzk12ierolsf5atxgg0zg.px.internal.cloudapp.net"
+                  "internalDomainNameSuffix": "qbjwskabpgaubki1qxge5kgvfh.px.internal.cloudapp.net"
                 },
-                "macAddress": "00-0D-3A-D1-A1-7D",
+                "macAddress": "00-22-48-98-D0-45",
                 "enableAcceleratedNetworking": true,
                 "vnetEncryptionSupported": false,
                 "enableIPForwarding": false,
@@ -148,7 +141,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "name": "NicUpdate-18c0be99-8ed6-4612-9136-7cf437208634-20241104092709",
+      "name": "NicUpdate-136f910a-ae57-4b8b-a2f5-daf92a7eb0aa-20241104094102",
       "dependsOn": [
         "Microsoft.Network/loadBalancers/LBvm"
       ],
@@ -171,12 +164,12 @@
               "location": "australiaeast",
               "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "5093285b-c22c-48bc-be3d-4f32df9cae1f",
+                "resourceGuid": "833be2e7-1b89-438b-8748-ea817a33e306",
                 "ipConfigurations": [
                   {
                     "name": "ipconfig1",
                     "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourceGroups/eburaso/providers/Microsoft.Network/networkInterfaces/vm-web-1449_z2/ipConfigurations/ipconfig1",
-                    "etag": "W/\"9c53f85d-ed63-4e78-a4f7-bbc348e31cac\"",
+                    "etag": "W/\"f7a0bf51-fc2a-47c5-ad4b-2a7e933ce870\"",
                     "type": "Microsoft.Network/networkInterfaces/ipConfigurations",
                     "properties": {
                       "provisioningState": "Succeeded",
@@ -189,7 +182,7 @@
                       "privateIPAddressVersion": "IPv4",
                       "loadBalancerBackendAddressPools": [
                         {
-                          "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourcegroups/eburaso/providers/Microsoft.Network/loadBalancers/LBvm/backendAddressPools/MyBackendPool"
+                          "id": "/subscriptions/f224499d-9e08-44eb-80e4-92cba7013495/resourcegroups/eburaso/providers/Microsoft.Network/loadBalancers/LBvm/backendAddressPools/MyLoadBalancingRule"
                         }
                       ],
                       "loadBalancerInboundNatRules": []
@@ -199,9 +192,9 @@
                 "dnsSettings": {
                   "dnsServers": [],
                   "appliedDnsServers": [],
-                  "internalDomainNameSuffix": "bpv3eqzk12ierolsf5atxgg0zg.px.internal.cloudapp.net"
+                  "internalDomainNameSuffix": "qbjwskabpgaubki1qxge5kgvfh.px.internal.cloudapp.net"
                 },
-                "macAddress": "00-0D-3A-D0-E0-4A",
+                "macAddress": "00-0D-3A-D0-1F-D6",
                 "enableAcceleratedNetworking": true,
                 "vnetEncryptionSupported": false,
                 "enableIPForwarding": false,
