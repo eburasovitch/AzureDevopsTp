@@ -5,25 +5,7 @@
     "location": {
       "type": "String"
     },
-    "networkInterfaceName1": {
-      "type": "String"
-    },
-    "enableAcceleratedNetworking": {
-      "type": "Bool"
-    },
-    "networkInterfaceName2": {
-      "type": "String"
-    },
-    "networkSecurityGroupName": {
-      "type": "String"
-    },
-    "networkSecurityGroupRules": {
-      "type": "Array"
-    },
-    "subnetName": {
-      "type": "String"
-    },
-    "virtualNetworkName": {
+    "osDiskType": {
       "type": "String"
     },
     "addressPrefixes": {
@@ -32,40 +14,46 @@
     "subnets": {
       "type": "Array"
     },
-    "publicIpAddressName1": {
+    "virtualNetworkId": {
       "type": "String"
     },
-    "publicIpAddressType": {
+    "virtualNetworkName": {
       "type": "String"
     },
-    "publicIpAddressSku": {
+    "backendPoolId": {
       "type": "String"
     },
-    "pipDeleteOption": {
+    "networkSecurityGroups": {
+      "type": "Array"
+    },
+    "networkInterfaceConfigurations": {
+      "type": "Array"
+    },
+    "vmName": {
       "type": "String"
     },
-    "virtualMachineName": {
+    "virtualMachineScaleSetName": {
       "type": "String"
     },
-    "virtualMachineName1": {
+    "instanceCount": {
       "type": "String"
     },
-    "virtualMachineComputerName1": {
+    "instanceSize": {
       "type": "String"
     },
-    "virtualMachineRG": {
+    "zone": {
+      "type": "Array"
+    },
+    "zoneBalance": {
       "type": "String"
     },
-    "osDiskType": {
+    "platformFaultDomainCount": {
       "type": "String"
     },
-    "osDiskDeleteOption": {
-      "type": "String"
+    "scaleInPolicy": {
+      "type": "Object"
     },
-    "virtualMachineSize": {
-      "type": "String"
-    },
-    "nicDeleteOption": {
+    "upgradePolicy": {
       "type": "String"
     },
     "hibernationEnabled": {
@@ -95,99 +83,34 @@
     "vTPM": {
       "type": "Bool"
     },
-    "virtualMachineName2": {
+    "healthExtensionProtocol": {
       "type": "String"
     },
-    "virtualMachineComputerName2": {
+    "healthExtensionPort": {
+      "type": "Int"
+    },
+    "healthExtensionRequestPath": {
       "type": "String"
     },
-    "virtualMachine1Zone": {
+    "autoRepairsPolicyEnabled": {
+      "type": "Bool"
+    },
+    "gracePeriod": {
       "type": "String"
     },
-    "virtualMachine2Zone": {
-      "type": "String"
-    },
-    "FileURL": {
+    "autoRepairsAction": {
       "type": "String"
     }
   },
   "variables": {
-    "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
-    "vnetName": "[parameters('virtualNetworkName')]",
-    "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-    "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
+    "storageApiVersion": "2021-01-01",
+    "networkApiVersion": "2020-11-01",
+    "virtualMachineScaleSetApiVersion": "2024-07-01",
+    "namingInfix": "[toLower(substring(concat(parameters('virtualMachineScaleSetName'), uniqueString(resourceGroup().id)), 0, 9))]",
+    "autoScaleResourceName": "[concat(substring(parameters('virtualMachineScaleSetName'), 0, min(length(parameters('virtualMachineScaleSetName')), 55)), 'autoscale')]",
+    "vmssId": "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSetName'))]"
   },
   "resources": [
-    {
-      "type": "Microsoft.Network/networkInterfaces",
-      "apiVersion": "2022-11-01",
-      "name": "[parameters('networkInterfaceName1')]",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]",
-        "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
-        "[concat('Microsoft.Network/publicIpAddresses/', parameters('publicIpAddressName1'))]"
-      ],
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "subnet": {
-                "id": "[variables('subnetRef')]"
-              },
-              "privateIPAllocationMethod": "Dynamic",
-              "publicIpAddress": {
-                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', parameters('publicIpAddressName1'))]",
-                "properties": {
-                  "deleteOption": "[parameters('pipDeleteOption')]"
-                }
-              }
-            }
-          }
-        ],
-        "enableAcceleratedNetworking": "[parameters('enableAcceleratedNetworking')]",
-        "networkSecurityGroup": {
-          "id": "[variables('nsgId')]"
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Network/networkInterfaces",
-      "apiVersion": "2022-11-01",
-      "name": "[parameters('networkInterfaceName2')]",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]",
-        "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
-      ],
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "subnet": {
-                "id": "[variables('subnetRef')]"
-              },
-              "privateIPAllocationMethod": "Dynamic"
-            }
-          }
-        ],
-        "enableAcceleratedNetworking": "[parameters('enableAcceleratedNetworking')]",
-        "networkSecurityGroup": {
-          "id": "[variables('nsgId')]"
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Network/networkSecurityGroups",
-      "apiVersion": "2020-05-01",
-      "name": "[parameters('networkSecurityGroupName')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "securityRules": "[parameters('networkSecurityGroupRules')]"
-      }
-    },
     {
       "type": "Microsoft.Network/virtualNetworks",
       "apiVersion": "2024-01-01",
@@ -201,217 +124,204 @@
       }
     },
     {
-      "type": "Microsoft.Network/publicIpAddresses",
-      "apiVersion": "2020-08-01",
-      "name": "[parameters('publicIpAddressName1')]",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "apiVersion": "2020-05-01",
+      "name": "[parameters('networkSecurityGroups')[copyIndex()].name]",
       "location": "[parameters('location')]",
+      "properties": {
+        "securityRules": "[parameters('networkSecurityGroups')[copyIndex()].rules]"
+      },
+      "copy": {
+        "name": "networkSecurityGroups",
+        "count": "[length(parameters('networkSecurityGroups'))]"
+      }
+    },
+    {
+      "type": "Microsoft.Insights/autoscaleSettings",
+      "apiVersion": "2021-05-01-preview",
+      "name": "[variables('autoScaleResourceName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachineScaleSets/', parameters('virtualMachineScaleSetName'))]"
+      ],
+      "properties": {
+        "name": "[variables('autoScaleResourceName')]",
+        "targetResourceUri": "[variables('vmssId')]",
+        "enabled": true,
+        "profiles": [
+          {
+            "name": "Default condition",
+            "capacity": {
+              "default": 2,
+              "minimum": 2,
+              "maximum": 20
+            },
+            "rules": [
+              {
+                "metricTrigger": {
+                  "metricName": "Percentage CPU",
+                  "metricResourceUri": "[variables('vmssId')]",
+                  "timeGrain": "PT1M",
+                  "statistic": "Average",
+                  "timeWindow": "PT5M",
+                  "timeAggregation": "Average",
+                  "operator": "GreaterThan",
+                  "threshold": "50"
+                },
+                "scaleAction": {
+                  "cooldown": "PT5M",
+                  "direction": "Increase",
+                  "type": "ChangeCount",
+                  "value": "1"
+                }
+              },
+              {
+                "metricTrigger": {
+                  "metricName": "Percentage CPU",
+                  "metricResourceUri": "[variables('vmssId')]",
+                  "timeGrain": "PT1M",
+                  "statistic": "Average",
+                  "timeWindow": "PT5M",
+                  "timeAggregation": "Average",
+                  "operator": "LessThan",
+                  "threshold": "20"
+                },
+                "scaleAction": {
+                  "cooldown": "PT5M",
+                  "direction": "Decrease",
+                  "type": "ChangeCount",
+                  "value": "1"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachineScaleSets",
+      "apiVersion": "[variables('virtualMachineScaleSetApiVersion')]",
+      "name": "[parameters('virtualMachineScaleSetName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
+        "networkSecurityGroups",
+        "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
+      ],
       "sku": {
-        "name": "[parameters('publicIpAddressSku')]"
+        "name": "[parameters('instanceSize')]",
+        "capacity": "[int(parameters('instanceCount'))]"
       },
-      "zones": [
-        "1",
-        "2",
-        "3"
-      ],
+      "zones": "[parameters('zone')]",
       "properties": {
-        "publicIpAllocationMethod": "[parameters('publicIpAddressType')]"
-      }
-    },
-    {
-      "type": "Microsoft.Compute/virtualMachines",
-      "apiVersion": "2024-03-01",
-      "name": "[parameters('virtualMachineName1')]",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName1'))]"
-      ],
-      "zones": [
-        "[parameters('virtualMachine1Zone')]"
-      ],
-      "identity": {
-        "type": "systemAssigned"
-      },
-      "properties": {
-        "hardwareProfile": {
-          "vmSize": "[parameters('virtualMachineSize')]"
-        },
-        "storageProfile": {
-          "osDisk": {
-            "createOption": "fromImage",
-            "managedDisk": {
-              "storageAccountType": "[parameters('osDiskType')]"
+        "virtualMachineProfile": {
+          "storageProfile": {
+            "osDisk": {
+              "createOption": "fromImage",
+              "caching": "ReadWrite",
+              "managedDisk": {
+                "storageAccountType": "[parameters('osDiskType')]"
+              }
             },
-            "deleteOption": "[parameters('osDiskDeleteOption')]"
+            "imageReference": {
+              "publisher": "MicrosoftWindowsServer",
+              "offer": "WindowsServer",
+              "sku": "2022-datacenter-azure-edition-hotpatch",
+              "version": "latest"
+            }
           },
-          "imageReference": {
-            "publisher": "MicrosoftWindowsServer",
-            "offer": "WindowsServer",
-            "sku": "2022-datacenter-azure-edition-hotpatch",
-            "version": "latest"
-          }
-        },
-        "networkProfile": {
-          "networkInterfaces": [
-            {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName1'))]",
-              "properties": {
-                "deleteOption": "[parameters('nicDeleteOption')]"
+          "networkProfile": {
+            "networkApiVersion": "[variables('networkApiVersion')]",
+            "copy": [
+              {
+                "name": "networkInterfaceConfigurations",
+                "count": "[length(parameters('networkInterfaceConfigurations'))]",
+                "input": {
+                  "name": "[parameters('networkInterfaceConfigurations')[copyIndex('networkInterfaceConfigurations')].name]",
+                  "properties": {
+                    "primary": "[parameters('networkInterfaceConfigurations')[copyIndex('networkInterfaceConfigurations')].primary]",
+                    "enableAcceleratedNetworking": "[parameters('networkInterfaceConfigurations')[copyIndex('networkInterfaceConfigurations')].enableAcceleratedNetworking]",
+                    "ipConfigurations": [
+                      {
+                        "name": "[concat(take(parameters('networkInterfaceConfigurations')[copyIndex('networkInterfaceConfigurations')].name, sub(80, length('-defaultIpConfiguration'))), '-defaultIpConfiguration')]",
+                        "properties": {
+                          "subnet": {
+                            "id": "[parameters('networkInterfaceConfigurations')[copyIndex('networkInterfaceConfigurations')].subnetId]"
+                          },
+                          "primary": "[parameters('networkInterfaceConfigurations')[copyIndex('networkInterfaceConfigurations')].primary]",
+                          "applicationGatewayBackendAddressPools": "[parameters('networkInterfaceConfigurations')[copyIndex('networkInterfaceConfigurations')].applicationGatewayBackendAddressPools]",
+                          "loadBalancerBackendAddressPools": "[parameters('networkInterfaceConfigurations')[copyIndex('networkInterfaceConfigurations')].loadBalancerBackendAddressPools]",
+                          "publicIPAddressConfiguration": "[if( equals( parameters('networkInterfaceConfigurations')[copyIndex('networkInterfaceConfigurations')].pipName, ''), json('null'), union(json(concat('{\"name\": \"', parameters('networkInterfaceConfigurations')[copyIndex('networkInterfaceConfigurations')].pipName, '\"}'))\n        ,json('{\"properties\": { \"idleTimeoutInMinutes\": 15}}')))]"
+                        }
+                      }
+                    ],
+                    "networkSecurityGroup": "[if( equals( parameters('networkInterfaceConfigurations')[copyIndex('networkInterfaceConfigurations')].nsgId, ''), json('null'),json(concat('{\"id\": \"', parameters('networkInterfaceConfigurations')[copyIndex('networkInterfaceConfigurations')].nsgId, '\"}')))]"
+                  }
+                }
+              }
+            ]
+          },
+          "extensionProfile": {
+            "extensions": [
+              {
+                "name": "HealthExtension",
+                "properties": {
+                  "publisher": "Microsoft.ManagedServices",
+                  "type": "ApplicationHealthWindows",
+                  "typeHandlerVersion": "1.0",
+                  "autoUpgradeMinorVersion": false,
+                  "settings": {
+                    "protocol": "[parameters('healthExtensionProtocol')]",
+                    "port": "[parameters('healthExtensionPort')]",
+                    "requestPath": "[parameters('healthExtensionRequestPath')]"
+                  }
+                }
+              }
+            ]
+          },
+          "diagnosticsProfile": {
+            "bootDiagnostics": {
+              "enabled": true
+            }
+          },
+          "osProfile": {
+            "computerNamePrefix": "[variables('namingInfix')]",
+            "adminUsername": "[parameters('adminUsername')]",
+            "adminPassword": "[parameters('adminPassword')]",
+            "windowsConfiguration": {
+              "provisionVmAgent": true,
+              "enableAutomaticUpdates": true,
+              "patchSettings": {
+                "enableHotpatching": "[parameters('enableHotpatching')]",
+                "patchMode": "[parameters('patchMode')]",
+                "automaticByPlatformSettings": {
+                  "rebootSetting": "[parameters('rebootSetting')]"
+                }
               }
             }
-          ]
-        },
-        "securityProfile": {
-          "securityType": "[parameters('securityType')]",
-          "uefiSettings": {
-            "secureBootEnabled": "[parameters('secureBoot')]",
-            "vTpmEnabled": "[parameters('vTPM')]"
+          },
+          "securityProfile": {
+            "securityType": "[parameters('securityType')]",
+            "uefiSettings": {
+              "secureBootEnabled": "[parameters('secureBoot')]",
+              "vTpmEnabled": "[parameters('vTPM')]"
+            }
           }
+        },
+        "zoneBalance": "[parameters('zoneBalance')]",
+        "orchestrationMode": "Flexible",
+        "platformFaultDomainCount": "[parameters('platformFaultDomainCount')]",
+        "scaleInPolicy": "[parameters('scaleInPolicy')]",
+        "upgradePolicy": {
+          "mode": "[parameters('upgradePolicy')]"
         },
         "additionalCapabilities": {
           "hibernationEnabled": false
         },
-        "osProfile": {
-          "computerName": "[parameters('virtualMachineComputerName1')]",
-          "adminUsername": "[parameters('adminUsername')]",
-          "adminPassword": "[parameters('adminPassword')]",
-          "windowsConfiguration": {
-            "enableAutomaticUpdates": true,
-            "provisionVmAgent": true,
-            "patchSettings": {
-              "enableHotpatching": "[parameters('enableHotpatching')]",
-              "patchMode": "[parameters('patchMode')]",
-              "automaticByPlatformSettings": {
-                "rebootSetting": "[parameters('rebootSetting')]"
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Compute/virtualMachines",
-      "apiVersion": "2024-03-01",
-      "name": "[parameters('virtualMachineName2')]",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName2'))]"
-      ],
-      "zones": [
-        "[parameters('virtualMachine2Zone')]"
-      ],
-      "identity": {
-        "type": "systemAssigned"
-      },
-      "properties": {
-        "hardwareProfile": {
-          "vmSize": "[parameters('virtualMachineSize')]"
-        },
-        "storageProfile": {
-          "osDisk": {
-            "createOption": "fromImage",
-            "managedDisk": {
-              "storageAccountType": "[parameters('osDiskType')]"
-            },
-            "deleteOption": "[parameters('osDiskDeleteOption')]"
-          },
-          "imageReference": {
-            "publisher": "MicrosoftWindowsServer",
-            "offer": "WindowsServer",
-            "sku": "2022-datacenter-azure-edition-hotpatch",
-            "version": "latest"
-          }
-        },
-        "networkProfile": {
-          "networkInterfaces": [
-            {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName2'))]",
-              "properties": {
-                "deleteOption": "[parameters('nicDeleteOption')]"
-              }
-            }
-          ]
-        },
-        "securityProfile": {
-          "securityType": "[parameters('securityType')]",
-          "uefiSettings": {
-            "secureBootEnabled": "[parameters('secureBoot')]",
-            "vTpmEnabled": "[parameters('vTPM')]"
-          }
-        },
-        "additionalCapabilities": {
-          "hibernationEnabled": false
-        },
-        "osProfile": {
-          "computerName": "[parameters('virtualMachineComputerName2')]",
-          "adminUsername": "[parameters('adminUsername')]",
-          "adminPassword": "[parameters('adminPassword')]",
-          "windowsConfiguration": {
-            "enableAutomaticUpdates": true,
-            "provisionVmAgent": true,
-            "patchSettings": {
-              "enableHotpatching": "[parameters('enableHotpatching')]",
-              "patchMode": "[parameters('patchMode')]",
-              "automaticByPlatformSettings": {
-                "rebootSetting": "[parameters('rebootSetting')]"
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "name": "Microsoft.CustomScriptExtension1",
-      "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName2'))]"
-      ],
-      "properties": {
-        "mode": "incremental",
-        "templateLink": {
-          "uri": "https://catalogartifact.azureedge.net/publicartifacts/Microsoft.CustomScriptExtension-arm-2.0.58/MainTemplate.json"
-        },
-        "parameters": {
-          "fileUris": {
-            "value": "[parameters('FileURL')]"
-          },
-          "arguments": {
-            "value": "powershell.exe -ExcutionPolicy Unrestriced -File [parameters('FileName')]"
-          },
-          "vmName": {
-            "value": "[parameters('virtualMachineName1')]"
-          },
-          "location": {
-            "value": "australiaeast"
-          }
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "name": "Microsoft.CustomScriptExtension2",
-      "dependsOn": [
-        "Microsoft.CustomScriptExtension1"
-      ],
-      "properties": {
-        "mode": "incremental",
-        "templateLink": {
-          "uri": "https://catalogartifact.azureedge.net/publicartifacts/Microsoft.CustomScriptExtension-arm-2.0.58/MainTemplate.json"
-        },
-        "parameters": {
-          "fileUris": {
-            "value": "[parameters('FileURL')]"
-          },
-          "arguments": {
-            "value": "powershell.exe -ExcutionPolicy Unrestriced -File [parameters('FileName')]"
-          },
-          "vmName": {
-            "value": "[parameters('virtualMachineName2')]"
-          },
-          "location": {
-            "value": "australiaeast"
-          }
+        "automaticRepairsPolicy": {
+          "enabled": "[parameters('autoRepairsPolicyEnabled')]",
+          "gracePeriod": "[parameters('gracePeriod')]",
+          "repairAction": "[parameters('autoRepairsAction')]"
         }
       }
     }

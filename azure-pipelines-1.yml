@@ -60,7 +60,7 @@ steps:
             Write-Host "##vso[task.setvariable variable=FileURL]$url"
 
 - task: AzureResourceManagerTemplateDeployment@3
-  displayName: Deployment VM
+  displayName: Deployment LBvm
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: 'Azure subscription 1(f224499d-9e08-44eb-80e4-92cba7013495)'
@@ -69,7 +69,6 @@ steps:
     resourceGroupName: '$(RgName)'
     location: 'Australia East'
     templateLocation: 'Linked artifact'
-    csmFile: '$(Build.SourcesDirectory)/WindowsVM/azuredeploy.json'
-    csmParametersFile: '$(Build.SourcesDirectory)/WindowsVM/azuredeploy.parameters.json'
-    overrideParameters: '-FileURL $(FileURL) -adminPassword $(AdminPass)'
+    csmFile: '$(Build.SourcesDirectory)/LBvm/azuredeploy.json'
+    csmParametersFile: '$(Build.SourcesDirectory)/LBvm/azuredeploy.parameters.json'
     deploymentMode: 'Complete'
