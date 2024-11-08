@@ -71,4 +71,4 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.SourcesDirectory)/LBvm/azuredeploy.json'
     csmParametersFile: '$(Build.SourcesDirectory)/LBvm/azuredeploy.parameters.json'
-    deploymentMode: 'Complete'
+    deploymentMode: 'Incremental'
