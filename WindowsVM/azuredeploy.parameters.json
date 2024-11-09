@@ -63,10 +63,10 @@
       ]
     },
     "vmName": {
-      "value": "VMss"
+      "value": "Vmss"
     },
     "virtualMachineScaleSetName": {
-      "value": "VMss"
+      "value": "Vmss"
     },
     "instanceCount": {
       "value": "2"
@@ -114,15 +114,6 @@
     },
     "rebootSetting": {
       "value": "IfRequired"
-    },
-    "securityType": {
-      "value": "TrustedLaunch"
-    },
-    "secureBoot": {
-      "value": true
-    },
-    "vTPM": {
-      "value": true
     },
     "healthExtensionProtocol": {
       "value": "http"

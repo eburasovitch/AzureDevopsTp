@@ -11,6 +11,8 @@ Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "VNet", "VNet\VNet.deploypro
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "LBvm", "LBvm\LBvm.deployproj", "{FBEBE1CC-B679-4C8A-AC0D-DB2856EC550F}"
 EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "ExtensionVM", "ExtensionVM\ExtensionVM.deployproj", "{C3B6588E-6AC6-4750-8AA9-035A4FB97896}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FBEBE1CC-B679-4C8A-AC0D-DB2856EC550F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBEBE1CC-B679-4C8A-AC0D-DB2856EC550F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBEBE1CC-B679-4C8A-AC0D-DB2856EC550F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3B6588E-6AC6-4750-8AA9-035A4FB97896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3B6588E-6AC6-4750-8AA9-035A4FB97896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3B6588E-6AC6-4750-8AA9-035A4FB97896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3B6588E-6AC6-4750-8AA9-035A4FB97896}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

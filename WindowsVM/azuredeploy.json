@@ -74,15 +74,6 @@
     "rebootSetting": {
       "type": "String"
     },
-    "securityType": {
-      "type": "String"
-    },
-    "secureBoot": {
-      "type": "Bool"
-    },
-    "vTPM": {
-      "type": "Bool"
-    },
     "healthExtensionProtocol": {
       "type": "String"
     },
@@ -279,11 +270,6 @@
               }
             ]
           },
-          "diagnosticsProfile": {
-            "bootDiagnostics": {
-              "enabled": true
-            }
-          },
           "osProfile": {
             "computerNamePrefix": "[variables('namingInfix')]",
             "adminUsername": "[parameters('adminUsername')]",
@@ -300,13 +286,7 @@
               }
             }
           },
-          "securityProfile": {
-            "securityType": "[parameters('securityType')]",
-            "uefiSettings": {
-              "secureBootEnabled": "[parameters('secureBoot')]",
-              "vTpmEnabled": "[parameters('vTPM')]"
-            }
-          }
+          "securityProfile": {}
         },
         "zoneBalance": "[parameters('zoneBalance')]",
         "orchestrationMode": "Flexible",
