@@ -278,6 +278,20 @@
                     "fileUris": "[split(parameters('fileUris'), ' ')]"
                   }
                 }
+              },
+              {
+                "name": "HealthExtension",
+                "properties": {
+                  "publisher": "Microsoft.ManagedServices",
+                  "type": "ApplicationHealthWindows",
+                  "typeHandlerVersion": "1.0",
+                  "autoUpgradeMinorVersion": false,
+                  "settings": {
+                    "protocol": "[parameters('healthExtensionProtocol')]",
+                    "port": "[parameters('healthExtensionPort')]",
+                    "requestPath": "[parameters('healthExtensionRequestPath')]"
+                  }
+                }
               }
             ]
           },
