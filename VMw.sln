@@ -13,6 +13,8 @@ Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "LBvm", "LBvm\LBvm.deploypro
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "ExtensionVM", "ExtensionVM\ExtensionVM.deployproj", "{C3B6588E-6AC6-4750-8AA9-035A4FB97896}"
 EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "keyVault", "keyVault\keyVault.deployproj", "{67A19CC7-918B-435F-9D5B-6FD539DA1027}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C3B6588E-6AC6-4750-8AA9-035A4FB97896}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3B6588E-6AC6-4750-8AA9-035A4FB97896}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3B6588E-6AC6-4750-8AA9-035A4FB97896}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67A19CC7-918B-435F-9D5B-6FD539DA1027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67A19CC7-918B-435F-9D5B-6FD539DA1027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67A19CC7-918B-435F-9D5B-6FD539DA1027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67A19CC7-918B-435F-9D5B-6FD539DA1027}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
