@@ -132,6 +132,9 @@
     },
     "autoRepairsAction": {
       "value": "Replace"
+    },
+    "fileUris": {
+      "value": ""
     }
   }
 }

@@ -91,6 +91,13 @@
     },
     "autoRepairsAction": {
       "type": "String"
+    },
+    "fileUris": {
+      "type": "String"
+    },
+    "arguments": {
+      "type": "SecureString",
+      "defaultValue": " "
     }
   },
   "variables": {
@@ -99,7 +106,11 @@
     "virtualMachineScaleSetApiVersion": "2024-07-01",
     "namingInfix": "[toLower(substring(concat(parameters('virtualMachineScaleSetName'), uniqueString(resourceGroup().id)), 0, 9))]",
     "autoScaleResourceName": "[concat(substring(parameters('virtualMachineScaleSetName'), 0, min(length(parameters('virtualMachineScaleSetName')), 55)), 'autoscale')]",
-    "vmssId": "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSetName'))]"
+    "vmssId": "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSetName'))]",
+    "UriFileNamePieces": "[split(parameters('fileUris'), '/')]",
+    "firstFileNameString": "[variables('UriFileNamePieces')[sub(length(variables('UriFileNamePieces')), 1)]]",
+    "firstFileNameBreakString": "[split(variables('firstFileNameString'), '?')]",
+    "firstFileName": "[variables('firstFileNameBreakString')[0]]"
   },
   "resources": [
     {
@@ -255,16 +266,16 @@
           "extensionProfile": {
             "extensions": [
               {
-                "name": "HealthExtension",
+                "name": "CustomScriptExtension",
                 "properties": {
-                  "publisher": "Microsoft.ManagedServices",
-                  "type": "ApplicationHealthWindows",
-                  "typeHandlerVersion": "1.0",
-                  "autoUpgradeMinorVersion": false,
-                  "settings": {
-                    "protocol": "[parameters('healthExtensionProtocol')]",
-                    "port": "[parameters('healthExtensionPort')]",
-                    "requestPath": "[parameters('healthExtensionRequestPath')]"
+                  "publisher": "Microsoft.Compute",
+                  "type": "CustomScriptExtension",
+                  "typeHandlerVersion": "1.9",
+                  "autoUpgradeMinorVersion": true,
+                  "settings": {},
+                  "protectedSettings": {
+                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('firstFileName'), ' ', parameters('arguments'))]",
+                    "fileUris": "[split(parameters('fileUris'), ' ')]"
                   }
                 }
               }

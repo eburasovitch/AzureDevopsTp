@@ -87,23 +87,9 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.SourcesDirectory)/WindowsVM/azuredeploy.json'
     csmParametersFile: '$(Build.SourcesDirectory)/WindowsVM/azuredeploy.parameters.json'
-    overrideParameters: '-adminPassword $(AdminPass)'
+    overrideParameters: '-adminPassword $(AdminPass) -fileUris $(FileName)'
     deploymentMode: 'Incremental'
 
-- task: AzureResourceManagerTemplateDeployment@3
-  displayName: ajout Extension VM
-  inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'Azure subscription 1(f224499d-9e08-44eb-80e4-92cba7013495)'
-    subscriptionId: 'f224499d-9e08-44eb-80e4-92cba7013495'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: '$(RgName)'
-    location: 'Australia East'
-    templateLocation: 'Linked artifact'
-    csmFile: '$(Build.SourcesDirectory)/ExtensionVM/azuredeploy.json'
-    csmParametersFile: '$(Build.SourcesDirectory)/ExtensionVM/azuredeploy.parameters.json'
-    overrideParameters: '-fileUris $(FileName)'
-    deploymentMode: 'Incremental'
 
 - task: AzureResourceManagerTemplateDeployment@3
   displayName: Deployment key vault
