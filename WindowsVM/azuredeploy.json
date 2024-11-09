@@ -93,7 +93,7 @@
       "type": "String"
     },
     "fileUris": {
-      "type": "String"
+      "type": "Array"
     },
     "arguments": {
       "type": "SecureString",
@@ -274,7 +274,7 @@
                   "autoUpgradeMinorVersion": true,
                   "settings": {},
                   "protectedSettings": {
-                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('firstFileName'), ' ', parameters('arguments'))]",
+                    "commandToExecute": "[concat ('powershell -ExecutionPolicy Unrestricted -File ', variables('firstFileName'), ' ', parameters('arguments'))]",
                     "fileUris": "[split(parameters('fileUris'), ' ')]"
                   }
                 }

@@ -134,7 +134,7 @@
       "value": "Replace"
     },
     "fileUris": {
-      "value": ""
+      "value": [ "" ]
     }
   }
 }
