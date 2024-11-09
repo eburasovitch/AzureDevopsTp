@@ -40,6 +40,9 @@
     },
     "networkAcls": {
       "type": "Object"
+    },
+    "secretValue": {
+      "type": "String"
     }
   },
   "variables": {},
