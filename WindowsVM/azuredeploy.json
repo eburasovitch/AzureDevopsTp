@@ -93,7 +93,7 @@
       "type": "String"
     },
     "fileUris": {
-      "type": "Array"
+      "type": "String"
     },
     "arguments": {
       "type": "SecureString",
